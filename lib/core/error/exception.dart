@@ -1,13 +1,29 @@
-
 import 'package:societymanager/core/constants/error_constants.dart';
 
-/// [NotFoundException] is thrown when API Endpoint
-/// returns a 500 Internal Server Error Status Code
-class InternalServerException implements Exception {}
+////////////////--------4XX ---------------//////////////////////
+
+///400 [BadRequestException] is thrown when there's
+/// no active internet connection
+class BadRequestException implements Exception {}
+
+//401 [UnAuthrizedException] is thrown when you are not authrized or permission denied
+class UnAuthrizedException implements Exception {}
+
+// 403 Forbidden
+class ForbiddenException implements Exception {}
 
 /// [NotFoundException] is thrown when API Endpoint
 /// returns a 404 Not Found Status Code
 class NotFoundException implements Exception {}
+
+// 405 Method Not allowed  [mainly when Wrong GET , POST, PATCH , PUT ....] are used
+class MethodNotAllowedException implements Exception {}
+
+// 408 Request time out
+class RequestTimeOutException implements Exception {}
+
+/// returns when Data not Found
+class DataNotFoundException implements Exception {}
 
 /// [ServerUnavailableException] is thrown when API Endpoint
 /// returns a 503 Server Unavailable Status Code
@@ -16,6 +32,27 @@ class ServerUnavailableException implements Exception {}
 /// [ConflictException] is thrown when API Endpoint
 /// returns a 409 Conflict Status Code
 class ConflictException implements Exception {}
+
+//429 Too many request from user Side
+class TooManyRequestException implements Exception {}
+
+////////////////--------5XX ---------------//////////////////////
+
+/// [InternalServerException] is thrown when API Endpoint
+/// returns a 500 Internal Server Error Status Code
+class InternalServerException implements Exception {}
+
+// /// [ServerUnavailableException] is thrown when API Endpoint
+// /// returns a 503 Server Unavailable Status Code
+// class ServerUnavailableException implements Exception {}
+
+/// [GatewayTimeOutException] is thrown when API Endpoint
+/// returns a 504 Gateway Timeout: The server, while acting as a gateway or proxy
+class GatewayTimeOutException implements Exception {}
+
+/// [BadGatewayException] is thrown when API Endpoint
+/// returns a 502 Bad Gateway: The server, while acting as a gateway or proxy
+class BadGatewayException implements Exception {}
 
 /// [CacheException] is thrown when there's
 /// no Cache Found in the device
@@ -26,12 +63,8 @@ class CacheException implements Exception {}
 class NoInternetConnectionException implements Exception {}
 
 /// [SomethingWentWrongException] is thrown when there's
-/// no active internet connection
+///
 class SomethingWentWrongException implements Exception {}
-
-/// [BadRequestException] is thrown when there's
-/// no active internet connection
-class BadRequestException implements Exception {}
 
 /// [AuthUserNotFoundException] is thrown when there's
 /// no user found in the firebase user directory

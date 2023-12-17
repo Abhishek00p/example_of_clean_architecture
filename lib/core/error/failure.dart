@@ -1,6 +1,4 @@
-
 import 'package:equatable/equatable.dart';
-import 'package:societymanager/core/error/exception.dart';
 
 /// This [Failure] class is created to reduce propagation
 /// of errors such as SocketException to propagate to
@@ -11,6 +9,26 @@ abstract class Failure extends Equatable {
   List<Object?> get props => [];
 }
 
+/// [TooManyRequestFailure] is returned when API Endpoint
+/// returns a 429 Too Many Request within a given time status code.
+class TooManyRequestFailure extends Failure {}
+
+/// [UnAuthrizedFailure] is returned when API Endpoint
+/// returns a 401 User is not Authrized to make API request status code.
+class UnAuthrizedFailure extends Failure {}
+
+/// [ForbiddenFailure] is returned when API Endpoint
+/// returns a 403 User is Forbid to make API request status code.
+class ForbiddenFailure extends Failure {}
+
+/// [RequestTimeOutFailure] is returned when API Endpoint
+/// returns a 408 the API is not processed within given Time status code.
+class RequestTimeOutFailure extends Failure {}
+
+/// [MethodNotAllowedFailure] is returned when API Endpoint
+/// returns a 405 the request is call with Wrong Method [GET,POST,...] status code.
+class MethodNotAllowedFailure extends Failure {}
+
 /// [InternalServerFailure] is returned when API Endpoint
 /// returns a 500 Internal Server Error status code.
 class InternalServerFailure extends Failure {}
@@ -19,9 +37,16 @@ class InternalServerFailure extends Failure {}
 /// returns a 404 Not Found status code.
 class NotFoundFailure extends Failure {}
 
+//Data Not Found
+class DataNotFoundFailure extends Failure {}
+
 /// [ServerUnavailableFailure] is returned when API Endpoint
 /// returns a 503 Server unavailable status code.
 class ServerUnavailableFailure extends Failure {}
+
+/// [BadGatewayFailure] is returned when API Endpoint
+/// returns a 502 Bad Gateway status code.
+class BadGatewayFailure extends Failure {}
 
 /// [CacheFailure] is returned when there's
 /// no Cache Found in the device.
@@ -39,11 +64,16 @@ class NoInternetConnectionFailure extends Failure {}
 /// returns a 400 Bad request Status Code.
 class BadRequestFailure extends Failure {}
 
-/// [BadRequestFailure] is returned when Response body from API endpoint
+/// [GatewayTimeOutFailure] is returned when API Endpoint
+/// returns a 504 Gateway Time out.
+class GatewayTimeOutFailure extends Failure {}
+
+/// [ParseJsonFailure] is returned when Response body from API endpoint
 /// is unable to be parsed into a dart object
 class ParseJsonFailure extends Failure {}
 
 /// Firebase Auth Log in Failures
+class FirebaseAuthLogInFailedFailure extends Failure {}
 
 class FirebaseAuthLogInInvalidEmailFailure extends Failure {}
 
@@ -148,36 +178,4 @@ class UnknownFailure extends Failure {
   UnknownFailure();
   @override
   List<Object?> get props => throw UnimplementedError();
-}
-
-// ===========  EXCEPTIONS ================
-Failure mapExceptionTOFailures(Exception exception) {
-  switch (exception) {
-    case NoInternetConnectionException():
-      return NoInternetConnectionFailure();
-    case AuthAccountExistWithDifferentCredentialException():
-      return AuthAccountExistWithDifferentCredentialFailure();
-    case AuthInvalidCredentialException():
-      return AuthInvalidCredentialFailure();
-    case AuthInvalidVerificationCodeException():
-      return AuthInvalidVerificationCodeFailure();
-    case AuthOperationNotAllowedException():
-      return AuthOperationNotAllowedFailure();
-    case AuthInvalidVerificationIdException():
-      return AuthInvalidVerificationIdFailure();
-    case AuthUserDisabledException():
-      return AuthUserDisabledFailure();
-    case AuthUserNotFoundException():
-      return AuthUserNotFoundFailure();
-    case AuthWrongPasswordException():
-      return AuthWrongPasswordFailure();
-    case AuthEmailAlreadyInUseException():
-      return AuthEmailAlreadyInUseFailure();
-    case AuthWeakPasswordException():
-      return WeakPasswordFailure();
-    case ParseJsonException():
-      return ParseJsonFailure();
-    default:
-      return UnknownFailure();
-  }
 }
